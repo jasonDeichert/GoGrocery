@@ -1,0 +1,7 @@
+version: '3'
+services:
+  go-grocery:
+    build: .
+    container_name: go-grocery
+    ports:
+      - "8080:8080"
