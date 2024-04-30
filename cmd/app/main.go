@@ -18,6 +18,9 @@ func main() {
 	recipeService := service.NewRecipeService(database)
 	recipeController := controller.NewRecipeController(recipeService)
 
+	fs := http.FileServer(http.Dir("../../frontend"))
+	http.Handle("/", fs)
+
 	http.HandleFunc("/recipes", recipeController.GetAllRecipes)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
