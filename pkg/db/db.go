@@ -34,7 +34,7 @@ func Init() *gorm.DB {
 	}
 
 	// Migrate all the schemas
-	if err := DB.AutoMigrate(&model.Recipe{}); err != nil {
+	if err := DB.AutoMigrate(&model.Recipe{}, &model.RecipeTask{}); err != nil {
 		log.Fatalf("failed to migrate database: %v", err)
 	}
 

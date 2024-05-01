@@ -2,6 +2,7 @@ package model
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/jinzhu/gorm"
 )
@@ -17,6 +18,14 @@ func (r RecipeRating) Validate() error {
 
 type Recipe struct {
 	gorm.Model
-	Name         string `json:"recipeName"`
-	RecipeRating int    `json:"recipeRating"`
+	Name         string       `json:"recipeName"`
+	RecipeRating int          `json:"recipeRating"`
+	Tasks        []RecipeTask `gorm:"foreignKey:RecipeID"` // One-to-many relationship
+}
+
+type RecipeTask struct {
+	gorm.Model
+	RecipeID    uint      `gorm:"not null"` // Foreign key
+	Description string    `json:"description"`
+	Time        time.Time `json:"time"`
 }
