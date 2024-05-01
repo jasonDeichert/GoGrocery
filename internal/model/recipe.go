@@ -17,6 +17,6 @@ func (r RecipeRating) Validate() error {
 
 type Recipe struct {
 	gorm.Model
-	Name         string
-	RecipeRating int
+	Name         string `json:"recipeName"`
+	RecipeRating int    `json:"recipeRating"`
 }

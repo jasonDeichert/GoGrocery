@@ -21,6 +21,20 @@ func main() {
 	fs := http.FileServer(http.Dir("../../frontend"))
 	http.Handle("/", fs)
 
-	http.HandleFunc("/recipes", recipeController.GetAllRecipes)
+	recipeRoute(recipeController)
 	log.Fatal(http.ListenAndServe(":8080", nil))
+}
+
+func recipeRoute(recipeController *controller.RecipeController) {
+
+	http.HandleFunc("/recipes", func(w http.ResponseWriter, r *http.Request) {
+		switch r.Method {
+		case "GET":
+			recipeController.GetAllRecipes(w, r)
+		case "POST":
+			recipeController.AddRecipe(w, r)
+		default:
+			http.Error(w, "Invalid method", http.StatusMethodNotAllowed)
+		}
+	})
 }

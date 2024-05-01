@@ -18,3 +18,8 @@ func (s *RecipeService) GetAllRecipes() ([]model.Recipe, error) {
 	result := s.DB.Find(&recipes)
 	return recipes, result.Error
 }
+
+func (s *RecipeService) AddRecipe(recipe *model.Recipe) error {
+	result := s.DB.Create(&recipe)
+	return result.Error
+}
