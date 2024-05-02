@@ -25,7 +25,7 @@ type Recipe struct {
 
 type RecipeTask struct {
 	gorm.Model
-	RecipeID    uint      `gorm:"not null"` // Foreign key
-	Description string    `json:"description"`
-	Time        time.Time `json:"time"`
+	RecipeID    uint          `gorm:"not null;constraint:OnDelete:CASCADE;"`
+	Description string        `json:"description"`
+	Time        time.Duration `json:"time"`
 }

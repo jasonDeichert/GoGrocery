@@ -11,7 +11,23 @@ function fetchRecipes() {
             data.forEach(recipe => {
                 // Create a new list item for each recipe
                 const listItem = document.createElement('li');
-                listItem.textContent = `${recipe.recipeName} - Rating: ${recipe.recipeRating}`;
+                listItem.textContent = `${recipe.recipeName} - Rating: ${recipe.recipeRating} - DebugId: ${recipe.ID}`;
+
+                if (recipe.Tasks && recipe.Tasks.length > 0) {
+
+                    // Create a nested unordered list for the Tasks
+                    const tasksList = document.createElement('ul');
+
+                    // Iterate over each task in the recipe
+                    recipe.Tasks.forEach(task => {
+                        // Create a new list item for each task
+                        const taskItem = document.createElement('li');
+                        taskItem.textContent = `${task.description} - Time: ${task.time}`;
+                        tasksList.appendChild(taskItem); // Add the task item to the tasks list
+                    });
+
+                    listItem.appendChild(tasksList); // Add the tasks list to the recipe list item
+                }
                 recipesList.appendChild(listItem); // Add the list item to the list
             });
         })

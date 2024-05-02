@@ -15,7 +15,7 @@ func NewRecipeService(db *gorm.DB) *RecipeService {
 
 func (s *RecipeService) GetAllRecipes() ([]model.Recipe, error) {
 	var recipes []model.Recipe
-	result := s.DB.Find(&recipes)
+	result := s.DB.Preload("Tasks").Find(&recipes)
 	return recipes, result.Error
 }
 
